@@ -12,7 +12,7 @@ import { Categoria } from './categoria/entities/categoria.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root@123',
+      password: 'root',
       database: 'db_greenconomy',
       entities: [Categoria],
     }),
