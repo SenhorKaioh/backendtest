@@ -39,5 +39,8 @@ export class CategoriaService{
           tipo: ILike(`%${tipo}%`)
         }
       })
-    }  
+  }
+  async create(categoria: Categoria): Promise<Categoria>{
+    return await this.categoriaRepository.save(categoria);
+    }
     }

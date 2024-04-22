@@ -1,6 +1,6 @@
 // TODO - IMPLEMENTAR CATEGORIA CONTROLLER
 
-import { Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { CategoriaService } from "../services/categoria.service";
 import { Categoria } from "../entities/categoria.entity";
 
@@ -22,5 +22,10 @@ export class CategoriaController{
     @HttpCode(HttpStatus.OK)
     findByTipo(@Param('tipo') tipo: string): Promise<Categoria[]>{
         return this.categoriaService.findByTipo(tipo);
+    }
+    @Post()
+    @HttpCode(HttpStatus.CREATED)
+    create(@Body() categoria: Categoria): Promise<Categoria>{
+        return this.categoriaService.create(categoria);
     }
 }
