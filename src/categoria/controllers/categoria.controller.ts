@@ -1,8 +1,8 @@
-// TODO - IMPLEMENTAR CATEGORIA CONTROLLER
 
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -43,5 +43,12 @@ export class CategoriaController {
   @HttpCode(HttpStatus.OK)
   update(@Body() categoria: Categoria): Promise<Categoria> {
     return this.categoriaService.update(categoria);
-  }
+    }
+
+    @Delete('/:id')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    delete(@Param('id', ParseIntPipe) id: number) {
+        return this.categoriaService.delete(id);
+    }
+    
 }

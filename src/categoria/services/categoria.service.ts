@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Categoria } from '../entities/categoria.entity';
-import { ILike, Repository } from 'typeorm';
+import { DeleteResult, ILike, Repository } from 'typeorm';
 
 @Injectable()
 export class CategoriaService {
@@ -49,7 +49,16 @@ export class CategoriaService {
         'Categoria não encontrada!',
         HttpStatus.NOT_FOUND,
       );
-
+  
     return await this.categoriaRepository.save(categoria);
+  }
+
+  async delete(id: number): Promise<DeleteResult>{
+    let buscaCategoria = await this.findById(id)
+
+    if (!buscaCategoria)
+      throw new HttpException('Categoria não encotrada!', HttpStatus.NOT_FOUND);
+
+    return await this.categoriaRepository.delete(id);
   }
 }
