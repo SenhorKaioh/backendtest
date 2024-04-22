@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Categoria } from './categoria/entities/categoria.entity';
 import { ConfigModule } from '@nestjs/config';
+import { CategoriaController } from './categoria/controllers/categoria.controller';
+import { CategoriaService } from './categoria/services/categoria.service';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { ConfigModule } from '@nestjs/config';
       synchronize: true,
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [CategoriaController],
+  providers: [CategoriaService],
 })
 export class AppModule {}
