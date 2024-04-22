@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Categoria } from './categoria/entities/categoria.entity';
 import { ConfigModule } from '@nestjs/config';
 import { CategoriaController } from './categoria/controllers/categoria.controller';
 import { CategoriaService } from './categoria/services/categoria.service';
+import { CategoriaModule } from './categoria/categoria.module';
 
 @Module({
   imports: [
@@ -23,6 +22,7 @@ import { CategoriaService } from './categoria/services/categoria.service';
       entities: [Categoria],
       synchronize: true,
     }),
+    CategoriaModule
   ],
   controllers: [CategoriaController],
   providers: [CategoriaService],
