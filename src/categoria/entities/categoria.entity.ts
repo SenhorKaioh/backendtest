@@ -1,3 +1,4 @@
+import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -6,15 +7,13 @@ export class Categoria {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Transform(({ value }: TransformFnParams) => value?.trim())
   @IsNotEmpty()
   @Column({ length: 255, nullable: false })
   tipo: string;
 
+  @Transform(({ value }: TransformFnParams) => value?.trim())
   @IsNotEmpty()
   @Column({ length: 255, nullable: false })
   slug: string;
-
-  @IsNotEmpty()
-  @Column({ length: 255, nullable: false })
-  foto: string;
 }
