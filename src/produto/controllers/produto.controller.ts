@@ -35,6 +35,22 @@ export class ProdutoController {
     return this.produtoService.findByNome(nome);
   }
 
+  @Get('/preco_maior/:preco')
+  @HttpCode(HttpStatus.OK)
+  findByMaiorPreco(
+    @Param('basePreco', ParseIntPipe) preco: number,
+  ): Promise<Produto[]> {
+    return this.produtoService.findByMaiorPreco(preco);
+  }
+
+  @Get('/preco_menor/:preco')
+  @HttpCode(HttpStatus.OK)
+  findByMenorPreco(
+    @Param('basePreco', ParseIntPipe) preco: number,
+  ): Promise<Produto[]> {
+    return this.produtoService.findByMenorPreco(preco);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() produto: Produto): Promise<Produto> {
