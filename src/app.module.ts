@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Categoria } from './categoria/entities/categoria.entity';
 import { ConfigModule } from '@nestjs/config';
-import { CategoriaController } from './categoria/controllers/categoria.controller';
-import { CategoriaService } from './categoria/services/categoria.service';
 import { CategoriaModule } from './categoria/categoria.module';
 import { ProdutoModule } from './produto/produto.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { Usuario } from './usuario/entities/usuario.entity';
+import { Produto } from './produto/entities/produto.entity';
 
 @Module({
   imports: [
@@ -20,13 +21,14 @@ import { ProdutoModule } from './produto/produto.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: 'db_greenconomy',
-      entities: [Categoria],
+      entities: [Categoria, Produto, Usuario],
       synchronize: true,
     }),
     CategoriaModule,
     ProdutoModule,
+    UsuarioModule
   ],
-  controllers: [CategoriaController],
-  providers: [CategoriaService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
