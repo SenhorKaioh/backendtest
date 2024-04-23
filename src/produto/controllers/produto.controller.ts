@@ -1,4 +1,11 @@
-import { Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { Produto } from '../entities/produto.entity';
 import { ProdutoService } from '../services/produto.service';
 
@@ -10,12 +17,17 @@ export class ProdutoController {
   @HttpCode(HttpStatus.OK)
   findAll(): Promise<Produto[]> {
     return this.produtoService.findAll();
-   
   }
+
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Produto> {
     return this.produtoService.findById(id);
   }
 
+  @Get('nome/:nome')
+  @HttpCode(HttpStatus.OK)
+  findByNome(@Param('nome') nome: string): Promise<Produto[]> {
+    return this.produtoService.findByNome(nome);
+  }
 }
