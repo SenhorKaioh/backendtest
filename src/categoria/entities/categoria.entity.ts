@@ -1,6 +1,7 @@
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Produto } from 'src/produto/entities/produto.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'tb_categoria' })
 export class Categoria {
@@ -16,4 +17,8 @@ export class Categoria {
   @IsNotEmpty()
   @Column({ length: 255, nullable: false })
   slug: string;
+
+  // Lista todos os Produtos associadas a Categoria
+  @OneToMany(() => Produto, (produto) => produto.categoria)
+  produtos: Produto[];
 }

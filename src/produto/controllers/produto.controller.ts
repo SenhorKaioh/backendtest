@@ -39,7 +39,7 @@ export class ProdutoController {
   @Get('/preco_maior/:preco')
   @HttpCode(HttpStatus.OK)
   findByMaiorPreco(
-    @Param('basePreco', ParseFloatPipe) preco: number,
+    @Param('preco', ParseFloatPipe) preco: number,
   ): Promise<Produto[]> {
     return this.produtoService.findByMaiorPreco(preco);
   }
@@ -47,7 +47,7 @@ export class ProdutoController {
   @Get('/preco_menor/:preco')
   @HttpCode(HttpStatus.OK)
   findByMenorPreco(
-    @Param('basePreco', ParseFloatPipe) preco: number,
+    @Param('preco', ParseFloatPipe) preco: number,
   ): Promise<Produto[]> {
     return this.produtoService.findByMenorPreco(preco);
   }
@@ -55,7 +55,7 @@ export class ProdutoController {
   @Get('/desconto_maior/:desconto')
   @HttpCode(HttpStatus.OK)
   findByMaiorDesconto(
-    @Param('porcentagemDesconto', ParseIntPipe) desconto: number,
+    @Param('desconto', ParseIntPipe) desconto: number,
   ): Promise<Produto[]> {
     return this.produtoService.findByMaiorDesconto(desconto);
   }
@@ -63,7 +63,7 @@ export class ProdutoController {
   @Get('/desconto_menor/:desconto')
   @HttpCode(HttpStatus.OK)
   findByMenorDesconto(
-    @Param('porcentagemDesconto', ParseIntPipe) desconto: number,
+    @Param('desconto', ParseIntPipe) desconto: number,
   ): Promise<Produto[]> {
     return this.produtoService.findByMenorDesconto(desconto);
   }

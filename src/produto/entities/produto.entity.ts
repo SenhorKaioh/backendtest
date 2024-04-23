@@ -1,6 +1,8 @@
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Categoria } from 'src/categoria/entities/categoria.entity';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'tb_produto' })
 export class Produto {
@@ -30,6 +32,17 @@ export class Produto {
   descricao: string;
 
   @Transform(({ value }: TransformFnParams) => value?.trim())
+  @IsNotEmpty()
   @Column({ length: 255, nullable: false })
   foto: string;
+
+  @ManyToOne(() => Categoria, (categoria) => categoria.produtos, {
+    onDelete: 'CASCADE',
+  })
+  categoria: Categoria;
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.produtos, {
+    onDelete: 'CASCADE',
+  })
+  usuario: Usuario;
 }
