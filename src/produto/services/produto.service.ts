@@ -66,6 +66,32 @@ export class ProdutoService {
     return produto;
   }
 
+  async findByMaiorDesconto(desconto: number): Promise<Produto[]> {
+    const produto = await this.produtoRepository.find({
+      where: {
+        porcentagemDesconto: MoreThan(desconto),
+      },
+    });
+
+    if (!produto)
+      throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+
+    return produto;
+  }
+
+  async findByMenorDesconto(desconto: number): Promise<Produto[]> {
+    const produto = await this.produtoRepository.find({
+      where: {
+        porcentagemDesconto: LessThan(desconto),
+      },
+    });
+
+    if (!produto)
+      throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+
+    return produto;
+  }
+
   async create(produto: Produto): Promise<Produto> {
     return await this.produtoRepository.save(produto);
   }
