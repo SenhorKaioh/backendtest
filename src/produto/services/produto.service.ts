@@ -1,7 +1,7 @@
+import { Produto } from './../entities/produto.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
-import { Produto } from '../entities/produto.entity';
+import { DeleteResult, ILike, Repository } from 'typeorm';
 
 @Injectable()
 export class ProdutoService {
@@ -38,5 +38,26 @@ export class ProdutoService {
       throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
 
     return produto;
+  }
+  async create(produto: Produto): Promise<Produto> {
+    return await this.produtoRepository.save(produto);
+  }
+
+  async update(produto: Produto): Promise<Produto> {
+    const buscaProduto = await this.findById(produto.id);
+
+    if (!buscaProduto)
+      throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+
+    return await this.produtoRepository.save(produto);
+  }
+
+  async delete(id: number): Promise<DeleteResult> {
+    const buscaProduto = await this.findById(id);
+
+    if (!buscaProduto)
+      throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+
+    return await this.produtoRepository.delete(id);
   }
 }
