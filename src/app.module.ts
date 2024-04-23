@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CategoriaController } from './categoria/controllers/categoria.controller';
 import { CategoriaService } from './categoria/services/categoria.service';
 import { CategoriaModule } from './categoria/categoria.module';
+import { ProdutoModule } from './produto/produto.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CategoriaModule } from './categoria/categoria.module';
       entities: [Categoria],
       synchronize: true,
     }),
-    CategoriaModule
+    CategoriaModule,
+    ProdutoModule,
   ],
   controllers: [CategoriaController],
   providers: [CategoriaService],
