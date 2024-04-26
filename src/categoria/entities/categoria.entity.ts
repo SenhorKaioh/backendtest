@@ -18,7 +18,6 @@ export class Categoria {
   @Column({ length: 255, nullable: false })
   slug: string;
 
-  // Lista todos os Produtos associadas a Categoria
   @OneToMany(() => Produto, (produto) => produto.categoria)
   produtos: Produto[];
 }

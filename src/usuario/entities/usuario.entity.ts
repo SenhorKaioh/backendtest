@@ -28,7 +28,6 @@ export class Usuario {
   @Column({ length: 5000, nullable: true })
   public foto: string;
 
-  // Lista todos os Produtos associadas ao Usuário
   @OneToMany(() => Produto, (produto) => produto.usuario)
   produtos: Produto[];
 }
