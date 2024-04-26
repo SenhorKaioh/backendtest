@@ -7,6 +7,7 @@ import { ProdutoModule } from './produto/produto.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { Usuario } from './usuario/entities/usuario.entity';
 import { Produto } from './produto/entities/produto.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { Produto } from './produto/entities/produto.entity';
     }),
     CategoriaModule,
     ProdutoModule,
-    UsuarioModule
+    UsuarioModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
