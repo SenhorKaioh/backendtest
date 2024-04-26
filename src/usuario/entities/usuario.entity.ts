@@ -3,7 +3,7 @@ import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
 import { Produto } from 'src/produto/entities/produto.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
-@Entity({ name: 'tb_usuario' })
+@Entity({ name: 'tb_usuarios' })
 export class Usuario {
   @PrimaryGeneratedColumn()
   public id: number;

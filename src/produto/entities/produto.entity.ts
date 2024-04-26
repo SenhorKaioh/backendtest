@@ -4,7 +4,7 @@ import { Categoria } from 'src/categoria/entities/categoria.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'tb_produto' })
+@Entity({ name: 'tb_produtos' })
 export class Produto {
   @PrimaryGeneratedColumn()
   id: number;
@@ -33,7 +33,7 @@ export class Produto {
 
   @Transform(({ value }: TransformFnParams) => value?.trim())
   @IsNotEmpty()
-  @Column({ length: 255, nullable: false })
+  @Column({ length: 2000, nullable: false })
   foto: string;
 
   @ManyToOne(() => Categoria, (categoria) => categoria.produtos, {
