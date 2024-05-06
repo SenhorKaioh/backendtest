@@ -1,6 +1,6 @@
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
-import { Produto } from 'src/produto/entities/produto.entity';
+import { Produto } from '../../produto/entities/produto.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'tb_usuarios' })
