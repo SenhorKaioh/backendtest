@@ -8,6 +8,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { Usuario } from './usuario/entities/usuario.entity';
 import { Produto } from './produto/entities/produto.entity';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { AuthModule } from './auth/auth.module';
     UsuarioModule,
     AuthModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
