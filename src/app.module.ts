@@ -9,6 +9,8 @@ import { Usuario } from './usuario/entities/usuario.entity';
 import { Produto } from './produto/entities/produto.entity';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { ProdService } from './data/services/prod.service';
+import { DevService } from './data/services/dev.service';
 
 @Module({
   imports: [
@@ -16,15 +18,9 @@ import { AppController } from './app.controller';
       envFilePath: ['.env', '.env.development'],
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: 'db_greenconomy',
-      entities: [Categoria, Produto, Usuario],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useClass: ProdService,
+      imports: [ConfigModule],
     }),
     CategoriaModule,
     ProdutoModule,
