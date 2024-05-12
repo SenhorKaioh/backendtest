@@ -158,6 +158,22 @@ export class ProdutoService {
     return await this.produtoRepository.save(produto);
   }
 
+  async avaliarProduto(id: number, novaAvaliacao: number): Promise<Produto> {
+    const produto = await this.findById(id);
+    if (!produto)
+      throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+
+    produto.numeroDeAvaliacoes += 1;
+    produto.notaMedia = parseFloat(
+      (
+        (produto.notaMedia * (produto.numeroDeAvaliacoes - 1) + novaAvaliacao) /
+        produto.numeroDeAvaliacoes
+      ).toFixed(2),
+    );
+
+    return await this.produtoRepository.save(produto);
+  }
+
   async delete(id: number): Promise<DeleteResult> {
     const buscaProduto = await this.findById(id);
 

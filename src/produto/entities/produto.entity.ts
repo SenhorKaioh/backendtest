@@ -44,6 +44,14 @@ export class Produto {
   @Column({ length: 2000, nullable: false })
   foto: string;
 
+  @ApiProperty()
+  @Column({ type: 'float', precision: 3, scale: 2, default: 0 })
+  notaMedia: number;
+
+  @ApiProperty()
+  @Column({ default: 0 })
+  numeroDeAvaliacoes: number;
+
   @ApiProperty({ type: () => Categoria })
   @ManyToOne(() => Categoria, (categoria) => categoria.produtos, {
     onDelete: 'CASCADE',
