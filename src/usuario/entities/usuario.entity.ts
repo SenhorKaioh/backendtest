@@ -34,6 +34,23 @@ export class Usuario {
   @Column({ length: 5000, nullable: true })
   public foto: string;
 
+  /**
+   * Função do usuario.
+   * Pode ser "USUARIO", "VENDEDOR" ou "ADMIN".
+   * Os usuários administradores podem adicionar, editar, excluir qualquer tipo de produto
+   * Os vendedores podem adicionar, editar e excluir apenas os produtos cadastrados por ele.
+   *
+   * O padrão é "USUARIO"
+   * @example "USUARIO"
+   */
+  @ApiProperty({ required: false })
+  @Column({ nullable: true, default: 'USUARIO' })
+  public funcao: string;
+
+  // @ApiProperty({ required: false })
+  // @Column({ type: 'boolean', nullable: true, default: false })
+  // public administrador: boolean;
+
   @OneToMany(() => Produto, (produto) => produto.usuario)
   produtos: Produto[];
 }
