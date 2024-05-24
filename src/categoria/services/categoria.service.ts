@@ -49,7 +49,15 @@ export class CategoriaService {
   }
 
   async create(categoria: Categoria): Promise<Categoria> {
-    return await this.categoriaRepository.save(categoria);
+    const existeCategoria = await this.categoriaRepository.findOne({
+      where: {
+        tipo: categoria.tipo,
+      },
+    });
+
+    if (!existeCategoria) return await this.categoriaRepository.save(categoria);
+
+    throw new HttpException('A categoria ja existe!', HttpStatus.BAD_REQUEST);
   }
 
   async update(categoria: Categoria): Promise<Categoria> {

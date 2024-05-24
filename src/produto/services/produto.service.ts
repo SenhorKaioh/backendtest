@@ -1,5 +1,10 @@
 import { Produto } from './../entities/produto.entity';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoriaService } from '../../categoria/services/categoria.service';
 import { DeleteResult, ILike, LessThan, MoreThan, Repository } from 'typeorm';
@@ -120,6 +125,12 @@ export class ProdutoService {
   }
 
   async create(produto: Produto): Promise<Produto> {
+    const existeProduto = await this.produtoRepository.findOne({
+      where: {
+        nome: produto.nome,
+      },
+    });
+
     if (produto.categoria) {
       const categoria = await this.categoriaService.findById(
         produto.categoria.id,
@@ -130,10 +141,11 @@ export class ProdutoService {
           'Categoria não foi encontrada!',
           HttpStatus.NOT_FOUND,
         );
-      return await this.produtoRepository.save(produto);
     }
 
-    return await this.produtoRepository.save(produto);
+    if (!existeProduto) return await this.produtoRepository.save(produto);
+
+    throw new HttpException('O produto ja existe!', HttpStatus.BAD_REQUEST);
   }
 
   async update(produto: Produto): Promise<Produto> {
@@ -162,6 +174,12 @@ export class ProdutoService {
     const produto = await this.findById(id);
     if (!produto)
       throw new HttpException('Produto não encontrado!', HttpStatus.NOT_FOUND);
+
+    if (novaAvaliacao < 0 || novaAvaliacao > 5) {
+      throw new BadRequestException(
+        'Avaliação inválida. A nota deve estar entre 0 e 5.',
+      );
+    }
 
     produto.numeroDeAvaliacoes += 1;
     produto.notaMedia = parseFloat(
