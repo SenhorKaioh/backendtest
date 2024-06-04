@@ -86,6 +86,15 @@ export class ProdutoController {
     return this.produtoService.update(produto);
   }
 
+  @Put('/:id/avaliar')
+  @HttpCode(HttpStatus.OK)
+  async avaliarProduto(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('novaAvaliacao') novaAvaliacao: number,
+  ): Promise<Produto> {
+    return this.produtoService.avaliarProduto(id, novaAvaliacao);
+  }
+
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number) {
