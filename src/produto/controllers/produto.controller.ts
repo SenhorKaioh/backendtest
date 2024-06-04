@@ -18,7 +18,6 @@ import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Produto')
-@UseGuards(JwtAuthGuard)
 @Controller('/produtos')
 @ApiBearerAuth()
 export class ProdutoController {
@@ -74,27 +73,31 @@ export class ProdutoController {
     return this.produtoService.findByMenorDesconto(desconto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() produto: Produto): Promise<Produto> {
     return this.produtoService.create(produto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put()
   @HttpCode(HttpStatus.OK)
   update(@Body() produto: Produto): Promise<Produto> {
     return this.produtoService.update(produto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/:id/avaliar')
   @HttpCode(HttpStatus.OK)
-  async avaliarProduto(
+  avaliarProduto(
     @Param('id', ParseIntPipe) id: number,
     @Body('novaAvaliacao') novaAvaliacao: number,
   ): Promise<Produto> {
     return this.produtoService.avaliarProduto(id, novaAvaliacao);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number) {
